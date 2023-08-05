@@ -2,6 +2,8 @@ package br.com.renan.math;
 
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName("Test Math Operations in SimpleMath Class")
 public class SimpleMathTest {
     SimpleMath simpleMath;
@@ -41,7 +43,7 @@ public class SimpleMathTest {
         Double actual = simpleMath.sum(firstNumber, secondNumber);
 
 //        Then/Assert
-        Assertions.assertEquals(expected, actual,
+        assertEquals(expected, actual,
                 () -> firstNumber + " + " + secondNumber + " did not produce " + expected + "!");
     }
 
@@ -55,7 +57,7 @@ public class SimpleMathTest {
         Double actual = simpleMath.subtraction(firstNumber, secondNumber);
         Double expected = 4.2D;
 
-        Assertions.assertEquals(expected, actual,
+        assertEquals(expected, actual,
                 () -> firstNumber + " - " + secondNumber + " did not produce " + expected + "!");
     }
 
@@ -69,7 +71,7 @@ public class SimpleMathTest {
         Double actual = simpleMath.multiplication(firstNumber, secondNumber);
         Double expected = 12.4D;
 
-        Assertions.assertEquals(expected, actual,
+        assertEquals(expected, actual,
                 () -> firstNumber + " * " + secondNumber + " did not produce " + expected + "!");
     }
 
@@ -89,7 +91,7 @@ public class SimpleMathTest {
                 },
                 () -> "Division by zero should throw an ArithmeticException");
 
-        Assertions.assertEquals(expectedMessage, actual.getMessage(), () -> "Unexpected exception message!");
+        assertEquals(expectedMessage, actual.getMessage(), () -> "Unexpected exception message!");
 
     }
 
@@ -103,7 +105,7 @@ public class SimpleMathTest {
         Double actual = simpleMath.division(firstNumber, secondNumber);
         Double expected = 3.1D;
 
-        Assertions.assertEquals(expected, actual,
+        assertEquals(expected, actual,
                 () -> firstNumber + " / " + secondNumber + " did not produce " + expected + "!");
     }
 
@@ -117,7 +119,7 @@ public class SimpleMathTest {
         Double actual = simpleMath.mean(firstNumber, secondNumber);
         Double expected = 4.1D;
 
-        Assertions.assertEquals(expected, actual,
+        assertEquals(expected, actual,
                 () -> "The mean of " + firstNumber + " and " + secondNumber + " did not produce " + expected + "!");
     }
 
@@ -130,7 +132,7 @@ public class SimpleMathTest {
         Double actual = simpleMath.squareRoot(number);
         Double expected = 2.4899799195977463D;
 
-        Assertions.assertEquals(expected, actual,
+        assertEquals(expected, actual,
                 () -> "The square root of " + number + " did not produce " + expected + "!");
     }
 
