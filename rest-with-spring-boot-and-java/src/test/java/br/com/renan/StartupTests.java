@@ -1,10 +1,10 @@
-package br.com.renan.restwithspringbootandjava;
+package br.com.renan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RestWithSpringBootAndJavaApplicationTests {
+class StartupTests {
 
 	@Test
 	void contextLoads() {
