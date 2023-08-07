@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class PersonService {
 
     @Autowired
-    private PersonRepository personRepository;
+    PersonRepository personRepository;
 
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
