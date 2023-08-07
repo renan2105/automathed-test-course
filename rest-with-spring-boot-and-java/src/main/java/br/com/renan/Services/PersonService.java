@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -17,14 +18,14 @@ public class PersonService {
 
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
-    public List<Person> findAll(){
+    public List<Person> findAll() {
 
         logger.info("Finding all people!");
 
         return personRepository.findAll();
     }
 
-    public Person findById(Long id){
+    public Person findById(Long id) {
 
         logger.info("Finding one person!");
 
@@ -32,14 +33,20 @@ public class PersonService {
                 .orElseThrow(() -> new ResourceNotFoundException("No Records found for this ID!"));
     }
 
-    public Person create(Person person){
+    public Person create(Person person) {
 
         logger.info("Creating one person!");
+
+        Optional<Person> savedPerson = personRepository.findByEmail(person.getEmail());
+
+        if (savedPerson.isPresent()) {
+            throw new ResourceNotFoundException("Person already exist with given e-Mail: " + person.getEmail());
+        }
 
         return personRepository.save(person);
     }
 
-    public Person update(Person person){
+    public Person update(Person person) {
 
         logger.info("Update one person!");
 
@@ -54,7 +61,7 @@ public class PersonService {
         return personRepository.save(entity);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
 
         logger.info("Delete one person!");
 

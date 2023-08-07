@@ -22,13 +22,13 @@ class PersonRepositoryTest {
     private Person person;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         person = new Person(
-            "Leandro",
-            "Costa",
-            "leandro@erudio.com.br",
-            "Uberlândia - Minas Gerais - Brasil",
-            "Male");
+                "Leandro",
+                "Costa",
+                "leandro@erudio.com.br",
+                "Uberlândia - Minas Gerais - Brasil",
+                "Male");
     }
 
     @DisplayName("JUnit test for Given Person Object when Save then Return Saved Person")
