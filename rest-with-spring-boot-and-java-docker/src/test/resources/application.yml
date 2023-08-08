@@ -3,7 +3,7 @@ server:
 cors:
   originPatterns: http://localhost:3000,http://localhost:8080,https://renan.com.br
 file:
-  upload-dir: /Code/UploadDir
+  upload-dir: /home/runner/work/automathed-test-course/UploadDir
 security:
   jwt:
     token:
