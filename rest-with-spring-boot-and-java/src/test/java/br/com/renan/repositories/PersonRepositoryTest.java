@@ -1,10 +1,12 @@
 package br.com.renan.repositories;
 
+import br.com.renan.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.renan.models.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
@@ -13,7 +15,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class PersonRepositoryTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+class PersonRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     private PersonRepository personRepository;
@@ -65,7 +68,7 @@ class PersonRepositoryTest {
 
         // Then / Assert
         assertNotNull(personList);
-        assertEquals(2, personList.size());
+        assertEquals(3, personList.size());
     }
 
     @DisplayName("JUnit test for Given Person Object when findById then Return Person Object")
