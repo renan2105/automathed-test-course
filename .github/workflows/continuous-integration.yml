@@ -31,6 +31,13 @@ jobs:
     - name: Docker Compose Build
       run: docker compose build
 
+    - name: Push to Docker Hub Container Registry
+      run: |
+        docker tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.run_id }}
+        
+        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest
+
     - name: Azure Container Registry Login
       uses: Azure/docker-login@v1.0.1
       with:
@@ -45,9 +52,14 @@ jobs:
         
         docker tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest ${{ secrets.AZURE_CONTAINER_REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.run_id }}
         docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.run_id }}
-    - name: Push to Docker Hub Container Registry
-      run: |
-        docker tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.run_id }}
 
-        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.run_id }}
-        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest
+    - name: Azure Login
+      uses: Azure/login@v1.4.6
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Azure WebApp Container - Application Deployment
+      uses: Azure/webapps-deploy@v2.2.10
+      with:
+        app-name: renan-api-server
+        images: ${{ secrets.AZURE_CONTAINER_REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.run_id }}
